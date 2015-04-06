@@ -257,7 +257,7 @@ def animateComputerMoving(board, column):
 def getComputerMove(board):
     potentialMoves = getPotentialMoves(board, BLACK, DIFFICULTY)
     # get the best fitness from the potential moves
-    bestMoveFitness = -1
+    bestMoveFitness = -7
     for i in range(BOARDWIDTH):
         if potentialMoves[i] > bestMoveFitness and isValidMove(board, i):
             bestMoveFitness = potentialMoves[i]
