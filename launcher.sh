@@ -29,9 +29,10 @@ while [ $RET -eq 0 ]; do
     --column="Script name" --column="Description" \
     flippy "A game like reversi" \
     fourinarow "Get four in a row" \
-    gemgem "A tile matching puzzle" \
+    gemgem "Julias Lieblingsspiel mit den Edelsteinen" \
     inkspill "Flood the screen with pixels" \
-    memorypuzzle "Test your memory" \
+    memorypuzzle "Großes Memory" \
+    marcelmemory "Memory mit Marcel-Einstellungen" \
     pentomino "5 block Tetris" \
     simulate "Repeat the pattern" \
     slidepuzzle "Traditional slide puzzle" \
