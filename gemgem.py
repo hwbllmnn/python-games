@@ -72,7 +72,7 @@ def main():
     # Initial set up.
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
-    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
+    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), pygame.FULLSCREEN)
     pygame.display.set_caption('Gemgem')
     BASICFONT = pygame.font.Font('freesansbold.ttf', 36)
 
