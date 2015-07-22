@@ -4,7 +4,7 @@ import pygame, sys
 from pygame.locals import *
 
 pygame.init()
-screen = pygame.display.set_mode((1024, 768), pygame.FULLSCREEN)
+screen = pygame.display.set_mode(pygame.display.list_modes()[0], pygame.FULLSCREEN)
 pygame.display.set_caption('Hallo Kinder, das ist das Wortratespiel')
 
 with open('/usr/share/dict/ngerman') as f:
@@ -22,15 +22,17 @@ background.fill((250, 250, 250))
 screen.blit(background, (0, 0))
 current_word = ''
 required_start = ''
+message = ''
 
 color = BLACK
 
 already_seen_words = []
 
-def render_text(word, col, ypos = 0):
+def render_text(word, col, ypos = 0, xpos = None):
     font = pygame.font.Font(None, 36)
     text = font.render(word, 1, col)
-    textpos = text.get_rect(centerx=background.get_width()/2, centery = 18 + ypos * 36)
+    centerx = background.get_width() / 2 if xpos == None else xpos
+    textpos = text.get_rect(centerx = centerx, centery = 18 + ypos * 36)
     background.blit(text, textpos)
     screen.blit(background, (0, 0))
     pygame.display.flip()
@@ -38,24 +40,38 @@ def render_text(word, col, ypos = 0):
 def render():
     background.fill((250, 250, 250))
     render_text(current_word, color)
+    render_text(message, RED, 0, 200)
     render_words_so_far()
 
 def render_words_so_far():
-    render_text('Schon ' + str(len(already_seen_words)) + ' Wörter!', GREEN, 1)
+    length = len(already_seen_words)
+    text = 'Noch kein Wort...' if length == 0 else 'Schon ' + str(length)
+    if length > 0:
+        text += u' Wort' if length == 1 else u' Wörter'
+    render_text(text, GREEN, 1)
     cnt = 2
     for word in reversed(already_seen_words):
         render_text(word, GREEN, cnt)
         cnt = cnt + 1
+
+current_word = 'Bitte ein Anfangswort eingeben'
+render()
+current_word = ''
 
 def quit():
     pygame.quit()
     sys.exit()
 
 def check_word():
-    global color
+    global color, message
     color = RED if not current_word in germandict else BLACK
-    if current_word in reversed(list(already_seen_words)):
+    if current_word in already_seen_words:
         color = RED
+    message = ''
+    if current_word not in germandict:
+        message = 'Das Wort kenn ich nicht...'
+    if current_word in already_seen_words:
+        message = 'Das Wort gab es schonmal...'
     render()
 
 while True:
@@ -69,12 +85,17 @@ while True:
             current_word = current_word[:-1]
             check_word()
         elif event.type == KEYDOWN and event.key == K_RETURN:
+            message = ''
             if len(current_word) == 0:
                 continue
             check_word()
             if current_word in already_seen_words:
+                message = 'Das Wort gab es schonmal...'
+                render()
                 continue
             if current_word not in germandict:
+                message = 'Das Wort kenn ich nicht...'
+                render()
                 continue
             already_seen_words.append(current_word)
             required_start = current_word[-1]
