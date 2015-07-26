@@ -28,6 +28,7 @@ while [ $RET -eq 0 ]; do
     --text="Games by Al Sweigart. Manual at inventwithpython.com/pygame" \
     --column="Script name" --column="Description" \
     flippy "A game like reversi" \
+    wordguess "Das neue Wortspiel" \
     fourinarow "Get four in a row" \
     gemgem "Julias Lieblingsspiel mit den Edelsteinen" \
     inkspill "Flood the screen with pixels" \

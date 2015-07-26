@@ -34,14 +34,14 @@ def render_text(word, col, ypos = 0, xpos = None):
     centerx = background.get_width() / 2 if xpos == None else xpos
     textpos = text.get_rect(centerx = centerx, centery = 18 + ypos * 36)
     background.blit(text, textpos)
-    screen.blit(background, (0, 0))
-    pygame.display.flip()
 
 def render():
     background.fill((250, 250, 250))
     render_text(current_word, color)
     render_text(message, RED, 0, 200)
     render_words_so_far()
+    screen.blit(background, (0, 0))
+    pygame.display.flip()
 
 def render_words_so_far():
     length = len(already_seen_words)
