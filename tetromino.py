@@ -161,7 +161,7 @@ def main():
     global FPSCLOCK, DISPLAYSURF, BASICFONT, BIGFONT
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
-    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
+    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), pygame.FULLSCREEN)
     BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
     BIGFONT = pygame.font.Font('freesansbold.ttf', 100)
     pygame.display.set_caption('Tetromino')
@@ -314,14 +314,14 @@ def terminate():
 # KRT 17/06/2012 rewrite event detection to deal with mouse use
 def checkForKeyPress():
     for event in pygame.event.get():
-        if event.type == QUIT:      #event is quit 
+        if event.type == QUIT:      #event is quit
             terminate()
         elif event.type == KEYDOWN:
             if event.key == K_ESCAPE:   #event is escape key
                 terminate()
             else:
                 return event.key   #key found return with it
-    # no quit or key events in queue so return None    
+    # no quit or key events in queue so return None
     return None
 
 
@@ -374,7 +374,7 @@ def calculateLevelAndFallFreq(score):
     # Based on the score, return the level the player is on and
     # how many seconds pass until a falling piece falls one space.
     level = int(score / 10) + 1
-    fallFreq = 0.27 - (level * 0.02)
+    fallFreq = 1 - (level * 0.02)
     return level, fallFreq
 
 def getNewPiece():
