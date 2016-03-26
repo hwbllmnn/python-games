@@ -65,13 +65,15 @@ def quit():
 def check_word():
     global color, message
     color = RED if not current_word in germandict else BLACK
-    if current_word in already_seen_words:
-        color = RED
     message = ''
     if current_word not in germandict:
         message = 'Das Wort kenn ich nicht...'
     if current_word in already_seen_words:
         message = 'Das Wort gab es schonmal...'
+        color = RED
+    if len(current_word) == 1:
+        message = 'Das Wort ist zu kurz...'
+        color = RED
     render()
 
 while True:
@@ -90,12 +92,10 @@ while True:
                 continue
             check_word()
             if current_word in already_seen_words:
-                message = 'Das Wort gab es schonmal...'
-                render()
                 continue
             if current_word not in germandict:
-                message = 'Das Wort kenn ich nicht...'
-                render()
+                continue
+            if len(current_word) == 1:
                 continue
             already_seen_words.append(current_word)
             required_start = current_word[-1]
